@@ -11,7 +11,7 @@ var login = require('./routes/login');
 var getList = require('./routes/getList');
 var app = express();
 
-// view engine setup
+// view engine setup 提交代码
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -23,6 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 app.use('/', index);
 app.use('/users', users);
 app.use('/api/login', login);
